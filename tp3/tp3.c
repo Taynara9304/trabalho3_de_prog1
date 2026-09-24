@@ -44,6 +44,7 @@ void eliminarElementosInvalidos(struct racional **ponteiroVetor, int *ponteiroN)
 
   while (i < final) {
     if (!valido_r(ponteiroVetor[i])) {
+      free(ponteiroVetor[i]);
       final--;
       ponteiroVetor[i] = ponteiroVetor[final];
     } else {
@@ -70,17 +71,15 @@ void ordenarVetor(struct racional **ponteiroVetor, int n) {
 }
 
 struct racional *somarElementosDoVetor(struct racional **ponteiroVetor, int n) {
-  if (n == 0) {
-    return cria_r(0, 1);
-  }
+    struct racional *acumulador = cria_r(0, 1);   /* aloca um racional NOVO, começando em 0 */
+    if (acumulador == NULL)
+        return NULL;
 
-  struct racional *acumulador = ponteiroVetor[0];
+    for (int i = 0; i < n; i++) {
+        soma_r(acumulador, ponteiroVetor[i], acumulador);
+    }
 
-  for (int i = 1; i < n; i++) {
-      soma_r(acumulador, ponteiroVetor[i], acumulador);
-  }
-
-  return acumulador;
+    return acumulador;
 }
 
 void lerTamanho(int *n) {
@@ -123,12 +122,13 @@ int main ()
 
   for (int i = 0; i < n; i++) {
     free(vetor[i]);
+    vetor[i] = NULL;
   }
 
+  printf("VETOR = ");
   imprimirVetor(vetor, n);
 
   free(vetor);
-
   free(soma);
 
   return 0;
