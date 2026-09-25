@@ -99,7 +99,7 @@ struct racional *cria_r(long numerador, long denominador)
 
   r = malloc(sizeof(*r));
 
-  if (r == NULL)
+  if (!r)
     return NULL;
 
   r->num = numerador;
@@ -111,7 +111,7 @@ struct racional *cria_r(long numerador, long denominador)
 /* Libera a memória alocada para o racional apontado por r */
 void destroi_r(struct racional **r)
 {
-  if (r == NULL || *r == NULL)
+  if (!r|| !(*r))
     return;
 
   free(*r);
@@ -121,7 +121,7 @@ void destroi_r(struct racional **r)
 /* Retorna 1 se o racional r for válido ou 0 se for inválido. Um racional é inválido se o denominador for zero ou se ele não tiver sido alocado. */
 int valido_r(struct racional *r)
 {
-  if (r == NULL || r->den == 0)
+  if (!r || r->den == 0)
     return 0;
   return 1;
 }
@@ -139,7 +139,7 @@ int valido_r(struct racional *r)
      - se numerador e denominador forem negativos, o racional é positivo. */
 void imprime_r(struct racional *r)
 {
-  if (r == NULL)
+  if (!r)
   {
     printf("NULL");
     return;
@@ -201,7 +201,7 @@ int compara_r(struct racional *r1, struct racional *r2)
  * Retorna 1 em sucesso e 0 se r1 ou r2 for inválido ou um ponteiro for nulo. */
 int soma_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
-  if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
+  if (!valido_r(r1) || !valido_r(r2) || !r3)
     return 0;
 
   long num, den;
@@ -230,7 +230,7 @@ int soma_r(struct racional *r1, struct racional *r2, struct racional *r3)
  * Retorna 1 em sucesso e 0 se r1 ou r2 for inválido ou um ponteiro for nulo. */
 int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
-  if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
+  if (!valido_r(r1) || !valido_r(r2) || !r3)
     return 0;
 
   long num, den;
@@ -259,7 +259,7 @@ int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
  * Retorna 1 em sucesso e 0 se r1 ou r2 for inválido ou um ponteiro for nulo. */
 int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
-  if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
+  if (!valido_r(r1) || !valido_r(r2) || !r3)
     return 0;
 
   long num, den;
@@ -279,7 +279,7 @@ int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
  * Retorna 1 em sucesso e 0 se r1 ou r2 for inválido ou um ponteiro for nulo. */
 int divide_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
-  if (!valido_r(r1) || !valido_r(r2) || r3 == NULL || r2->num == 0)
+  if (!valido_r(r1) || !valido_r(r2) || !r3 || r2->num == 0)
     return 0;
 
   long num, den;

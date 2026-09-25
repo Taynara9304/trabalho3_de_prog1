@@ -55,24 +55,28 @@ void eliminarElementosInvalidos(struct racional **ponteiroVetor, int *ponteiroN)
   *ponteiroN = final;
 }
 
-// Método bubble sort
-void ordenarVetor(struct racional **ponteiroVetor, int n) {
+void troca(struct racional **ponteiroVetor, int j) {
   struct racional *aux;
 
+  aux = ponteiroVetor[j];
+  ponteiroVetor[j] = ponteiroVetor[j+1];
+  ponteiroVetor[j+1] = aux;
+}
+
+// Método bubble sort
+void ordenarVetor(struct racional **ponteiroVetor, int n) {
   for(int i = 0; i < n; i++) {
     for(int j = 0; j < n-1; j++) {
       if(compara_r(ponteiroVetor[j], ponteiroVetor[j+1]) == 1) {
-        aux = ponteiroVetor[j];
-        ponteiroVetor[j] = ponteiroVetor[j+1];
-        ponteiroVetor[j+1] = aux;
+        troca(ponteiroVetor, j);
       }
     }
   }
 }
 
 struct racional *somarElementosDoVetor(struct racional **ponteiroVetor, int n) {
-    struct racional *acumulador = cria_r(0, 1);   /* aloca um racional NOVO, começando em 0 */
-    if (acumulador == NULL)
+    struct racional *acumulador = cria_r(0, 1);
+    if (!acumulador)
         return NULL;
 
     for (int i = 0; i < n; i++) {
