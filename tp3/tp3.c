@@ -44,7 +44,7 @@ void eliminarElementosInvalidos(struct racional **ponteiroVetor, int *ponteiroN)
 
   while (i < final) {
     if (!valido_r(ponteiroVetor[i])) {
-      free(ponteiroVetor[i]);
+      destroi_r(&ponteiroVetor[i]);
       final--;
       ponteiroVetor[i] = ponteiroVetor[final];
     } else {
@@ -98,10 +98,10 @@ int main ()
 
   lerTamanho(&n);
 
-  if (n < 0 || n > 100)
+  if (n <= 0 || n >= 100)
     return 1;
 
-  vetor = malloc(n * sizeof(vetor));
+  vetor = malloc(n * sizeof(*vetor));
 
   lerVetor(vetor, n);
 
@@ -125,7 +125,7 @@ int main ()
   printf("\n");
 
   for (int i = 0; i < n; i++) {
-    free(vetor[i]);
+    destroi_r(&vetor[i]);
     vetor[i] = NULL;
   }
 
